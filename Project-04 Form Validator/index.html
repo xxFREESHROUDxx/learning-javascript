@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validator | Baibhav KC</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Form Validator</h1>
+      <h3 id="message"></h3>
+      <form id="form" novalidate>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Your Name"
+            minlength="3"
+            maxlength="100"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="abc@gmail.com"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="11111-111111"
+            pattern="^[0-9]{5}-[0-9]{6}$"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="website">Website URL</label>
+          <input
+            type="url"
+            id="website"
+            name="website"
+            placeholder="https://www.google.com"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password1">Password</label>
+          <input
+            type="password"
+            id="password1"
+            name="password"
+            placeholder="Create Password (Min 8 Characters)"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            title="Please include at last one uppercase, lowercase, number and special character."
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password2">Confirm Password</label>
+          <input
+            type="password"
+            id="password2"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            required
+          />
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
