@@ -1,5 +1,3 @@
-// I wish you good luck and happy coding 🥰🤠🥳🥳💯💯
-
 import { monsters } from './monsters.js';
 
 for (let monsterDiv of monsters) {
