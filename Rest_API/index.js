@@ -87,6 +87,7 @@ app.put('/api/products/:id', (req, res) => {
   });
 });
 
+// validation using Joi module
 function validation(body) {
   const schema = Joi.object({
     name: Joi.string().min(3).max(20).required(),
@@ -95,5 +96,22 @@ function validation(body) {
 
   return schema.validate(body);
 }
+
+// Update specific product data (using Patch method)
+app.patch('/api/products/:id', (req, res) => {
+  const index = products.findIndex((product) => product.id === req.params.id);
+  if (index === -1) {
+    return res.status(404).json({
+      message: 'Products not found with this ID',
+    });
+  }
+
+  let updateProduct = {
+    ...products[index],
+    ...req.body,
+  };
+  products[index] = updateProduct;
+  return res.json(updateProduct);
+});
 
 app.listen(3000, () => console.log('Server is running at port 3000'));
