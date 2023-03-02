@@ -114,4 +114,18 @@ app.patch('/api/products/:id', (req, res) => {
   return res.json(updateProduct);
 });
 
+// Delete specific product data (using delete method)
+app.delete('/api/products/:id', (req, res) => {
+  const product = products.find((prod) => prod.id === req.params.id);
+  if (!product) {
+    return res.status(404).json({
+      message: 'Products not found with this ID',
+    });
+  }
+
+  const index = products.findIndex((prod) => prod.id === req.params.id);
+  products.splice(index, 1);
+  return res.json(product);
+});
+
 app.listen(3000, () => console.log('Server is running at port 3000'));
