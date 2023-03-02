@@ -128,4 +128,10 @@ app.delete('/api/products/:id', (req, res) => {
   return res.json(product);
 });
 
+// Delete all product data
+app.delete('/api/products', (req, res) => {
+  products.splice(0);
+  return res.json(products);
+});
+
 app.listen(3000, () => console.log('Server is running at port 3000'));
