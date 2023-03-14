@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 
 // creating basic routes
 app.get('/', (req, res) => {
-  res.send('<h1 style="text-align:center;">Hello World!</h1>');
+  res.send('Hi Baibhav');
 });
 
 const products = [
