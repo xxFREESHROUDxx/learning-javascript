@@ -13,6 +13,7 @@ mongoose
 //Importing using vanilla javascript
 const User = require('./model/User');
 const Task = require('./model/Task');
+const { findByIdAndUpdate } = require('./model/User');
 
 const port = process.env.PORT || 4040;
 app.listen(port, () => console.log(`Server is running at port ${port}`));
@@ -66,6 +67,35 @@ app.get('/user', async (req, res) => {
     return res.json({ success: false, message: e.message });
   }
 });
+
+// /task/:id GET method for specific task data
+app.get('/task/:id', async (req, res) => {
+  try {
+    console.log(req.body);
+    const task = await Task.findById(req.params.id);
+    return res.json({ success: true, task });
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
+  }
+});
+
+// /user/:id GET method for specific user data
+app.get('/user/:id', async (req, res) => {
+  try {
+    console.log(req.body);
+    const user = await User.findById(req.params.id);
+    return res.json({ success: true, user });
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
+  }
+});
+
+// /task/:id PATCH method for specific Task Data
+app.patch('/task/:id', async (req, res) => {
+  console.log(req.body);
+  const task = await findByIdAndUpdate(req.params.id);
+});
+
 // const { getMaxListeners } = require('./model/User');
 
 // async function db() {
