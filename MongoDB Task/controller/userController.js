@@ -35,17 +35,21 @@ exports.getSpecificUser = async (req, res) => {
 
 exports.updateSpecificUser = async (req, res) => {
   try {
-    console.log(req.body);
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({
         success: false,
         message: 'User not found!',
       });
     }
+
+    const keys = Object.keys(req.body);
+
+    for (let key of keys) {
+      user[key] = req.body[key];
+    }
+    await user.save();
+
     return res.json({ success: true, user });
   } catch (error) {
     return res.status(400).json({ success: false, message: error.message });
