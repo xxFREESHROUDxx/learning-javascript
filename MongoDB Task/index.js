@@ -92,8 +92,46 @@ app.get('/user/:id', async (req, res) => {
 
 // /task/:id PATCH method for specific Task Data
 app.patch('/task/:id', async (req, res) => {
-  console.log(req.body);
-  const task = await findByIdAndUpdate(req.params.id);
+  try {
+    console.log(req.body);
+    const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        message: 'Task not found!',
+      });
+    }
+    return res.json({ success: true, task });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+// /user/:id PATCH method for specific User Data
+app.patch('/user/:id', async (req, res) => {
+  try {
+    console.log(req.body);
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found!',
+      });
+    }
+    return res.json({ success: true, user });
+  } catch (error) {
+    return res.status(400).json({ success: false, message: error.message });
+  }
 });
 
 // const { getMaxListeners } = require('./model/User');
