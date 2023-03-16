@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const bcrypt = require('bcryptjs');
 
 exports.storeUser = async (req, res) => {
   try {
@@ -11,6 +12,30 @@ exports.storeUser = async (req, res) => {
   } catch (e) {
     return res.status(400).json({ success: false, message: e.message });
   }
+};
+
+exports.login = async (req, res) => {
+  // accessing email and password from the database
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res
+      .status(401)
+      .json({ success: false, message: 'Invalid email or password!' });
+  }
+
+  const isMatched = await bcrypt.compare(password, user.password);
+  if (!isMatched) {
+    return res.status(401).json({
+      success: false,
+      message: 'Invalid email/password',
+    });
+  }
+
+  return res.status(200).json({
+    success: true,
+    user,
+  });
 };
 
 exports.fetchAllUser = async (req, res) => {
