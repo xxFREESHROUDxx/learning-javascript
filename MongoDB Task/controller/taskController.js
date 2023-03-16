@@ -1,10 +1,6 @@
-const express = require('express');
-const router = express.Router();
-
 const Task = require('../model/Task');
 
-// /task POST method
-router.post('/task', async (req, res) => {
+exports.storeTask = async (req, res) => {
   try {
     console.log(req.body);
     const task = new Task(req.body);
@@ -15,10 +11,9 @@ router.post('/task', async (req, res) => {
   } catch (e) {
     return res.status(400).json({ success: false, message: e.message });
   }
-});
+};
 
-// /task GET method
-router.get('/task', async (req, res) => {
+exports.fetchAllTask = async (req, res) => {
   try {
     console.log(req.body);
     const task = await Task.find();
@@ -26,10 +21,9 @@ router.get('/task', async (req, res) => {
   } catch (e) {
     return res.json({ success: false, message: e.message });
   }
-});
+};
 
-// /task/:id GET method for specific task data
-router.get('/task/:id', async (req, res) => {
+exports.getSpecificTask = async (req, res) => {
   try {
     console.log(req.body);
     const task = await Task.findById(req.params.id);
@@ -37,10 +31,9 @@ router.get('/task/:id', async (req, res) => {
   } catch (error) {
     return res.json({ success: false, message: error.message });
   }
-});
+};
 
-// /task/:id PATCH method for specific Task Data
-router.patch('/task/:id', async (req, res) => {
+exports.updateSpecificTask = async (req, res) => {
   try {
     console.log(req.body);
     const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
@@ -61,10 +54,9 @@ router.patch('/task/:id', async (req, res) => {
       message: error.message,
     });
   }
-});
+};
 
-// /task/:id DELETE method for deleting specific task data
-router.delete('/task/:id', async (req, res) => {
+exports.deleteSpecificTask = async (req, res) => {
   try {
     console.log(req.body);
     const task = await Task.findByIdAndDelete(req.params.id);
@@ -81,6 +73,4 @@ router.delete('/task/:id', async (req, res) => {
       message: error.message,
     });
   }
-});
-
-module.exports = router;
+};

@@ -10,8 +10,8 @@ mongoose
   .catch((err) => console.log(err));
 
 // adding routes for the data in routes folder
-const userRoutes = require('./routes/user');
-const taskRoutes = require('./routes/task');
+const userRoutes = require('./routes/userRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 
 // pass routes using middleware to access it from routes folder
 app.use(userRoutes);

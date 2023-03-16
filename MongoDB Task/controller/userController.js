@@ -1,10 +1,6 @@
-const express = require('express');
-const router = express.Router();
-
 const User = require('../model/User');
 
-// /user POST method
-router.post('/user', async (req, res) => {
+exports.storeUser = async (req, res) => {
   try {
     console.log(req.body);
     const user = new User(req.body);
@@ -15,10 +11,9 @@ router.post('/user', async (req, res) => {
   } catch (e) {
     return res.status(400).json({ success: false, message: e.message });
   }
-});
+};
 
-// /user GET method
-router.get('/user', async (req, res) => {
+exports.fetchAllUser = async (req, res) => {
   try {
     console.log(req.body);
     const user = await User.find();
@@ -26,10 +21,9 @@ router.get('/user', async (req, res) => {
   } catch (e) {
     return res.json({ success: false, message: e.message });
   }
-});
+};
 
-// /user/:id GET method for specific user data
-router.get('/user/:id', async (req, res) => {
+exports.getSpecificUser = async (req, res) => {
   try {
     console.log(req.body);
     const user = await User.findById(req.params.id);
@@ -37,10 +31,9 @@ router.get('/user/:id', async (req, res) => {
   } catch (error) {
     return res.json({ success: false, message: error.message });
   }
-});
+};
 
-// /user/:id PATCH method for specific User Data
-router.patch('/user/:id', async (req, res) => {
+exports.updateSpecificUser = async (req, res) => {
   try {
     console.log(req.body);
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
@@ -57,10 +50,9 @@ router.patch('/user/:id', async (req, res) => {
   } catch (error) {
     return res.status(400).json({ success: false, message: error.message });
   }
-});
+};
 
-// /user/:id DELETE method for deleteing specific user data
-router.delete('/user/:id', async (req, res) => {
+exports.deleteSpecificUser = async (req, res) => {
   try {
     console.log(req.body);
     const user = await User.findByIdAndDelete(req.params.id);
@@ -77,6 +69,4 @@ router.delete('/user/:id', async (req, res) => {
       message: error.message,
     });
   }
-});
-
-module.exports = router;
+};
