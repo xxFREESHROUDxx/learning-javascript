@@ -134,6 +134,46 @@ app.patch('/user/:id', async (req, res) => {
   }
 });
 
+// /user/:id DELETE method for deleteing specific user data
+app.delete('/user/:id', async (req, res) => {
+  try {
+    console.log(req.body);
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found!',
+      });
+    }
+    return res.json({ success: true, user });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+// /task/:id DELETE method for deleting specific task data
+app.delete('/task/:id', async (req, res) => {
+  try {
+    console.log(req.body);
+    const task = await Task.findByIdAndDelete(req.params.id);
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        message: 'Task not found!',
+      });
+    }
+    return res.json({ success: true, task });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 // const { getMaxListeners } = require('./model/User');
 
 // async function db() {
